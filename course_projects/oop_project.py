@@ -40,7 +40,19 @@ class Deck:
     the players. It will use SUITE and RANKS to create the deck. It should also
     have a method for splitting/cutting the deck in half and Shuffling the deck.
     """
-    pass
+
+    def __init__(self):
+        self.deck = []
+        self.generate_deck()
+
+    def generate_deck(self):
+        global SUITE, RANKS
+
+        for suite_element in SUITE:
+            for card_value in RANKS:
+                card = [suite_element, card_value]
+                self.deck.append(card)
+
 
 
 class Hand:
@@ -48,13 +60,20 @@ class Hand:
     This is the Hand class. Each player has a Hand, and can add or remove
     cards from that hand. There should be an add and remove card method here.
     """
-    pass
+    def __init__(self):
+        self.cards_in_hand = []
+
+    def remove_card(self):
+        self.cards_in_hand.pop()
+
+    def add_card(self, card_to_add):
+        self.cards_in_hand.append(card_to_add)
 
 
 class Player:
     """
     This is the Player class, which takes in a name and an instance of a Hand
-    class object. The Payer can then play cards and check if they still have cards.
+    class object. The Player can then play cards and check if they still have cards.
     """
     pass
 
@@ -62,6 +81,7 @@ class Player:
 ######################
 #      GAME PLAY     #
 ######################
-print("Welcome to War, let's begin...")
+# print("Welcome to War, let's begin...")
+
 
 # Use the 3 classes along with some logic to play a game of war!
