@@ -43,7 +43,10 @@ class Deck:
 
     def __init__(self):
         self.deck = []
+        self.split_a = []
+        self.split_b = []
         self.generate_deck()
+        self.shuffle_deck()
 
     def generate_deck(self):
         global SUITE, RANKS
@@ -52,6 +55,22 @@ class Deck:
             for card_value in RANKS:
                 card = [suite_element, card_value]
                 self.deck.append(card)
+
+    def shuffle_deck(self):
+        shuffle(self.deck)
+
+    def split_deck(self):
+        deck_size = 52
+        half = deck_size / 2
+        self.split_a = []
+        self.split_b = []
+
+        for i in range(0, deck_size, 1):
+            if i > half:
+                self.split_b.append(self.deck.pop())
+            else:
+                self.split_a.append(self.deck.pop())
+
 
 
 
@@ -70,18 +89,28 @@ class Hand:
         self.cards_in_hand.append(card_to_add)
 
 
-class Player:
+class Player(Hand):
     """
     This is the Player class, which takes in a name and an instance of a Hand
     class object. The Player can then play cards and check if they still have cards.
     """
-    pass
+
+    def __init__(self):
+        super().__init__()
+        self.name = ''
+
+    def check_card_in_hand(self):
+        if len(self.cards_in_hand) > 0:
+            print('Cards in Hand')
+            print(self.cards_in_hand)
 
 
 ######################
 #      GAME PLAY     #
 ######################
-# print("Welcome to War, let's begin...")
+print("Welcome to War, let's begin...")
 
-
-# Use the 3 classes along with some logic to play a game of war!
+current_deck = Deck()
+current_deck.split_deck()
+print(current_deck.split_a)
+print(current_deck.split_b)
