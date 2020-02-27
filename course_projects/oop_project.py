@@ -66,7 +66,7 @@ class Deck:
         self.split_b = []
 
         for i in range(0, deck_size, 1):
-            if i > half:
+            if i >= half:
                 self.split_b.append(self.deck.pop())
             else:
                 self.split_a.append(self.deck.pop())
@@ -112,5 +112,4 @@ print("Welcome to War, let's begin...")
 
 current_deck = Deck()
 current_deck.split_deck()
-print(current_deck.split_a)
-print(current_deck.split_b)
+
