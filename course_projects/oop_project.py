@@ -72,8 +72,6 @@ class Deck:
                 self.split_a.append(self.deck.pop())
 
 
-
-
 class Hand:
     """
     This is the Hand class. Each player has a Hand, and can add or remove
@@ -119,5 +117,88 @@ current_deck.split_deck()
 cpu = Player()
 player = Player()
 
-player.player_deck = current_deck.split_a
+cpu.player_deck = current_deck.split_a
 player.player_deck = current_deck.split_b
+
+num_round = 0
+war_pool = []
+
+while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
+    print("Starting new round: \n\n\n")
+    num_round = num_round + 1
+    print("Number of cards in each deck:\n")
+    print("Player Human: {}\n".format(len(player.player_deck)))
+    print("Player CPU: {}\n".format(len(cpu.player_deck)))
+
+    input("\n\nPress Enter to play round...\n\n")
+
+    player_card = player.player_deck.pop()
+    cpu_card = cpu.player_deck.pop()
+
+    print("Player Human: {}\n".format(len(player.player_deck)))
+    print("Player CPU: {}\n".format(len(cpu.player_deck)))
+
+    print("Cards drawn\n")
+    print("Player Human Card: {}\n".format(player_card))
+    print("Player Human RANK: {}, value {}\n\n".format(player_card[1], RANKS.index(player_card[1])))
+    print("Player CPU Card: {}".format(cpu_card))
+    print("Player cpu RANK: {}, value {}\n\n".format(cpu_card[1], RANKS.index(cpu_card[1])))
+
+    input("\n\nPress Enter...\n\n")
+
+    if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+        print("Player card is higher, human player won!\n")
+
+        player.player_deck.insert(0, player_card)
+        player.player_deck.insert(0, cpu_card)
+
+        input("\n\nPress Enter to continue...\n\n")
+
+    elif RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+        print("CPU card is higher, human player won!\n")
+
+        cpu.player_deck.insert(0, cpu_card)
+        cpu.player_deck.insert(0, player_card)
+
+        input("\n\nPress Enter to continue...\n\n")
+
+    else:
+        print("DRAW, STARTING WAR!\n\n\n")
+
+        input("\n\nPress Enter to Battle...\n\n")
+
+        war_pool.append(player_card)
+        war_pool.append(cpu_card)
+
+        for i in range(0, 2, 1):
+            war_pool.append(player.player_deck.pop())
+            war_pool.append(cpu.player_deck.pop())
+
+        if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+            print("Player card is higher, human player won!\n")
+
+            player.player_deck.insert(0, player_card)
+            player.player_deck.insert(0, cpu_card)
+
+            for war_card in war_pool:
+                player.player_deck.insert(0, war_pool.pop())
+
+            input("\n\nPress Enter to continue...\n\n")
+
+        elif RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+            print("CPU card is higher, human player won!\n")
+
+            cpu.player_deck.insert(0, cpu_card)
+            cpu.player_deck.insert(0, player_card)
+
+            for war_card in war_pool:
+                cpu.player_deck.insert(0, war_pool.pop())
+
+            input("\n\nPress Enter to continue...\n\n")
+
+        # TODO put validations in function for recursion in case double Wars
+
+
+
+
+
