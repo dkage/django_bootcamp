@@ -98,6 +98,7 @@ class Player(Hand):
     def __init__(self):
         super().__init__()
         self.name = ''
+        self.player_deck = []
 
     def check_card_in_hand(self):
         if len(self.cards_in_hand) > 0:
@@ -110,6 +111,13 @@ class Player(Hand):
 ######################
 print("Welcome to War, let's begin...")
 
+# Generate decks and split them
 current_deck = Deck()
 current_deck.split_deck()
 
+# Instance players and
+cpu = Player()
+player = Player()
+
+player.player_deck = current_deck.split_a
+player.player_deck = current_deck.split_b
