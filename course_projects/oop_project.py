@@ -154,7 +154,7 @@ while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
 
         input("\n\nPress Enter to continue...\n\n")
 
-    elif RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+    elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
         print("CPU card is higher, human player won!\n")
 
         cpu.player_deck.insert(0, cpu_card)
@@ -164,8 +164,7 @@ while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
 
     else:
         print("DRAW, STARTING WAR!\n\n\n")
-
-        input("\n\nPress Enter to Battle...\n\n")
+        print("Putting cards in pool.")
 
         war_pool.append(player_card)
         war_pool.append(cpu_card)
@@ -173,6 +172,11 @@ while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
         for i in range(0, 2, 1):
             war_pool.append(player.player_deck.pop())
             war_pool.append(cpu.player_deck.pop())
+
+        print("War card pool follows:\n")
+        print(war_pool)
+
+        input("\n\nPress Enter to Battle...\n\n")
 
         if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
             print("Player card is higher, human player won!\n")
@@ -185,7 +189,7 @@ while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
 
             input("\n\nPress Enter to continue...\n\n")
 
-        elif RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+        elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
             print("CPU card is higher, human player won!\n")
 
             cpu.player_deck.insert(0, cpu_card)
@@ -198,7 +202,7 @@ while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
 
         # TODO put validations in function for recursion in case double Wars
 
-
+# TODO add more messages telling who won, and better comment each round
 
 
 
