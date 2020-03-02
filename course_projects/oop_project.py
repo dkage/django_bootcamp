@@ -27,6 +27,7 @@
 # https://en.wikipedia.org/wiki/War_(card_game)
 
 from random import shuffle
+import sys
 
 # Two useful variables for creating Cards.
 SUITE = 'H D S C'.split()
@@ -104,6 +105,68 @@ class Player(Hand):
             print(self.cards_in_hand)
 
 
+def deck_add(cards_to_add, deck):
+    if len(cards_to_add) == tuple:
+        deck.insert(0, cards_to_add)
+    elif len(cards_to_add) > 1:
+        print('pool')
+
+    return 1
+
+
+def who_wins():
+    global player_card, cpu_card, player, cpu
+
+    winner = 'TBD'
+    if value_of_card(player_card) > value_of_card(cpu_card):
+        print("Human Player Won! Card pool going to Human deck")
+        deck_add(player_card, player.player_deck.pop())
+        deck_add(cpu_card, player.player_deck.pop())
+        winner = 'Human'
+
+    elif value_of_card(cpu_card) > value_of_card(player_card):
+        print("CPU Won this round! Card pool going to CPU deck.")
+        deck_add(player_card, cpu.player_deck.pop())
+        deck_add(cpu_card, cpu.player_deck.pop())
+        winner = 'CPU'
+
+    else:
+        input("It's a DRAW, War starts!")
+        war()
+        # TODO add pool
+
+    return winner
+
+
+def war():
+    global player, cpu, player_card, cpu_card
+
+    war_pool.append(player_card)
+    war_pool.append(cpu_card)
+    for n in range(0, 2, 1):
+        war_pool.append(player.player_deck.pop())
+        war_pool.append(cpu.player_deck.pop())
+    player_card = player.card_deck.pop()
+    cpu_card = cpu.card_deck.pop()
+
+    wins = who_wins()
+    if wins == "Human":
+        player.player_deck = war_pool + player.player_deck
+        print("Human wins war. Pool added to his deck.")
+    elif wins == 'CPU':
+        cpu.player_deck = war_pool + cpu.player_deck
+        print("CPU wins war. Pool added to it's deck.")
+
+    return True
+
+
+def value_of_card(card_to_evaluate):
+    global RANKS
+
+    card_num_letter = card_to_evaluate[1]
+    return RANKS.index(card_num_letter)
+
+
 ######################
 #      GAME PLAY     #
 ######################
@@ -123,86 +186,105 @@ player.player_deck = current_deck.split_b
 num_round = 0
 war_pool = []
 
-while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
-    print("Starting new round: \n\n\n")
-    num_round = num_round + 1
-    print("Number of cards in each deck:\n")
-    print("Player Human: {}\n".format(len(player.player_deck)))
-    print("Player CPU: {}\n".format(len(cpu.player_deck)))
+print("Game starts!")
 
+while len(player.player_deck) > 0 and len(cpu.player_deck) > 0:
+    print("============================================================")
+    print("============================================================")
     input("\n\nPress Enter to play round...\n\n")
 
     player_card = player.player_deck.pop()
     cpu_card = cpu.player_deck.pop()
 
-    print("Player Human: {}\n".format(len(player.player_deck)))
-    print("Player CPU: {}\n".format(len(cpu.player_deck)))
+    print("DRAWING PHASE: \n")
+    print("Human Player draw: {}".format(player_card))
+    print("CPU draw card: {}".format(cpu_card))
+    print("\n")
+    who_wins()
 
-    print("Cards drawn\n")
-    print("Player Human Card: {}\n".format(player_card))
-    print("Player Human RANK: {}, value {}\n\n".format(player_card[1], RANKS.index(player_card[1])))
-    print("Player CPU Card: {}".format(cpu_card))
-    print("Player cpu RANK: {}, value {}\n\n".format(cpu_card[1], RANKS.index(cpu_card[1])))
-
-    input("\n\nPress Enter...\n\n")
-
-    if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
-        print("Player card is higher, human player won!\n")
-
-        player.player_deck.insert(0, player_card)
-        player.player_deck.insert(0, cpu_card)
-
-        input("\n\nPress Enter to continue...\n\n")
-
-    elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
-        print("CPU card is higher, human player won!\n")
-
-        cpu.player_deck.insert(0, cpu_card)
-        cpu.player_deck.insert(0, player_card)
-
-        input("\n\nPress Enter to continue...\n\n")
-
-    else:
-        print("DRAW, STARTING WAR!\n\n\n")
-        print("Putting cards in pool.")
-
-        war_pool.append(player_card)
-        war_pool.append(cpu_card)
-
-        for i in range(0, 2, 1):
-            war_pool.append(player.player_deck.pop())
-            war_pool.append(cpu.player_deck.pop())
-
-        print("War card pool follows:\n")
-        print(war_pool)
-
-        input("\n\nPress Enter to Battle...\n\n")
-
-        if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
-            print("Player card is higher, human player won!\n")
-
-            player.player_deck.insert(0, player_card)
-            player.player_deck.insert(0, cpu_card)
-
-            for war_card in war_pool:
-                player.player_deck.insert(0, war_pool.pop())
-
-            input("\n\nPress Enter to continue...\n\n")
-
-        elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
-            print("CPU card is higher, human player won!\n")
-
-            cpu.player_deck.insert(0, cpu_card)
-            cpu.player_deck.insert(0, player_card)
-
-            for war_card in war_pool:
-                cpu.player_deck.insert(0, war_pool.pop())
-
-            input("\n\nPress Enter to continue...\n\n")
+    # print("Starting new round: \n\n\n")
+    # num_round = num_round + 1
+    # print("Number of cards in each deck:\n")
+    # print("Player Human: {}\n".format(len(player.player_deck)))
+    # print("Player CPU: {}\n".format(len(cpu.player_deck)))
+    #
+    # input("\n\nPress Enter to play round...\n\n")
+    #
+    # player_card = player.player_deck.pop()
+    # cpu_card = cpu.player_deck.pop()
+    #
+    # print("Player Human: {}\n".format(len(player.player_deck)))
+    # print("Player CPU: {}\n".format(len(cpu.player_deck)))
+    #
+    # print("Cards drawn\n")
+    # print("Player Human Card: {}\n".format(player_card))
+    # print("Player Human RANK: {}, value {}\n\n".format(player_card[1], RANKS.index(player_card[1])))
+    # print("Player CPU Card: {}".format(cpu_card))
+    # print("Player cpu RANK: {}, value {}\n\n".format(cpu_card[1], RANKS.index(cpu_card[1])))
+    #
+    # input("\n\nPress Enter...\n\n")
+    #
+    # if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+    #     print("Player card is higher, human player won!\n")
+    #
+    #     player.player_deck.insert(0, player_card)
+    #     player.player_deck.insert(0, cpu_card)
+    #
+    #     input("\n\nPress Enter to continue...\n\n")
+    #
+    # elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
+    #     print("CPU card is higher, human player won!\n")
+    #
+    #     cpu.player_deck.insert(0, cpu_card)
+    #     cpu.player_deck.insert(0, player_card)
+    #
+    #     input("\n\nPress Enter to continue...\n\n")
+    #
+    # else:
+    #     print("DRAW, STARTING WAR!\n\n\n")
+    #     print("Putting cards in pool.")
+    #
+    #     war_pool.append(player_card)
+    #     war_pool.append(cpu_card)
+    #
+    #     for i in range(0, 2, 1):
+    #         war_pool.append(player.player_deck.pop())
+    #         war_pool.append(cpu.player_deck.pop())
+    #
+    #     print("War card pool follows:\n")
+    #     print(war_pool)
+    #
+    #     input("\n\nPress Enter to Battle...\n\n")
+    #
+    #     if RANKS.index(player_card[1]) > RANKS.index(cpu_card[1]):
+    #         print("Player card is higher, human player won!\n")
+    #
+    #         player.player_deck.insert(0, player_card)
+    #         player.player_deck.insert(0, cpu_card)
+    #
+    #         for war_card in war_pool:
+    #             player.player_deck.insert(0, war_pool.pop())
+    #
+    #         input("\n\nPress Enter to continue...\n\n")
+    #
+    #     elif RANKS.index(cpu_card[1]) > RANKS.index(player_card[1]):
+    #         print("CPU card is higher, human player won!\n")
+    #
+    #         cpu.player_deck.insert(0, cpu_card)
+    #         cpu.player_deck.insert(0, player_card)
+    #
+    #         for war_card in war_pool:
+    #             cpu.player_deck.insert(0, war_pool.pop())
+    #
+    #         input("\n\nPress Enter to continue...\n\n")
 
         # TODO put validations in function for recursion in case double Wars
 
 # TODO add more messages telling who won, and better comment each round
+if len(player.player_deck) == 0:
+    print("Human Player Lost, CPU WON!")
+elif len(cpu.player_deck) == 0:
+    print("Human Player Lost, CPU WON!")
 
 
 
