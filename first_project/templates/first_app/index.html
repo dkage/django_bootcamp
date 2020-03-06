@@ -1,11 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Test html</title>
-
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
     {{ insert_var }}
 
+    <br><br>
+    <p>Test image:</p><br>
+    <img src="{% static "images/test.jpg"%}" alt="">
+    
 </head>
 <body>
 
