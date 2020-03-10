@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 # Views
 def index(request):
-    return HttpResponse("<em>My Second App</em>")
+    return render(request, 'AppTwo/index.html')
 
 
 def help_page(request):
