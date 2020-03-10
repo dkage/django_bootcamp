@@ -1,18 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
+
+{# Loads #}
 {% load static %}
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Test html</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Home</title>
     <link rel="stylesheet" href="{% static "css/base.css" %}">
-    {{ insert_var }}
-
-    <br><br>
-    <p>Test image:</p><br>
-    <img src="{% static "images/test.jpg"%}" alt="">
-    
 </head>
+
 <body>
+    <h1>Hi</h1>
+
+    <h2>Access records stored in database:</h2>
+
+    <div class="django_two">
+        {% if access_records %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Webpage</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+
+                {% for item in access_records %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.date }}</td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+
+        {% endif %}
+    </div>
 
 </body>
 </html>
