@@ -10,4 +10,3 @@ from ..AppTwo.models import User
 
 fake_gen = Faker()
 
-
