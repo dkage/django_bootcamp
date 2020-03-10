@@ -36,3 +36,9 @@ def populate(N=5):
 
         # Create fake log access
         record = AccessRecord.objects.get_or_create(name=web_page, date=fake_date)[0]
+
+
+if __name__ == '__main__':
+    print('Populating script running!')
+    populate(20)
+    print('Script done.')
