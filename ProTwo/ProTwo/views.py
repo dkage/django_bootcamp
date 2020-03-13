@@ -8,7 +8,11 @@ def index(request):
 
 
 def users(request):
-    users_list = User.objects.order_by("first_name")
+    # List users saved at database
+
+    users_list = User.objects.order_by("last_name")
+
+    # Every context args for render should be in a single dict, those are then iterated inside template
     context_dicts = {
         "users_list": users_list
     }
