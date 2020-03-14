@@ -6,17 +6,18 @@
 </head>
 <body>
 
-{% for user in users_list %}
-    <h3>{{ forloop.counter }}. User Info</h3>
-    <ul>
-        <li>First Name: {{ user.first_name }}</li>
-        <li>Last Name: {{ user.last_name }}</li>
-        <li>Email : {{ user.email }}</li>
-    </ul>
+{% if users %}
+    {% for user in users_list %}
+        <h3>{{ forloop.counter }}. User Info</h3>
+        <ul>
+            <li>First Name: {{ user.first_name }}</li>
+            <li>Last Name: {{ user.last_name }}</li>
+            <li>Email : {{ user.email }}</li>
+        </ul>
 
 
-{% endfor %}
-
+    {% endfor %}
+{% endif %}
 
 </body>
 </html>
