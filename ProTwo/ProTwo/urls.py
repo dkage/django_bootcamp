@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
     path('AppTwo/', include('AppTwo.urls')),
-    path('users/', views.users)
+    path('users/', views.users),
+    path('register/', views.user_form)
 ]
