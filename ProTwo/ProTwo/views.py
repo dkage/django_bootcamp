@@ -23,7 +23,10 @@ def users(request):
 def user_form(request):
     if request.method == 'POST':
         form = forms.FormUser(request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors)
     else:
         form = forms.FormUser
 
