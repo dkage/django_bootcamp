@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Other</title>
-</head>
-<body>
+{% extends "templates/core/base.html" %}
 
-<h1>Other page</h1>
+{% block body_block %}
+    <h1>Other page</h1>
 
-</body>
-</html>
+    <p>Example of template inheritance!</p>
+{% endblock %}
