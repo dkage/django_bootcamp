@@ -28,6 +28,17 @@
             <li class="navbar-item">
                 <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
             </li>
+
+            {% if user.is_autenthicated %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>
