@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 from . import forms
 
 
@@ -6,8 +10,36 @@ def index(request):
     return render(request, 'core/index.html')
 
 
-def login(request):
-    return request
+@login_required
+def special(request):
+    return HttpResponse('You are logged in.')
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponse(request, 'core/index.html')
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reversed('index'))
+            else:
+                return HttpResponse("Account blocked.")
+        else:
+            print('Logging tentative failed.')
+            print('Username: {} and password {}'.format(username, password))
+            return HttpResponse('Invalid login inputs.')
+    else:
+        return render(request, 'core/login.html', {})
 
 
 def registration(request):

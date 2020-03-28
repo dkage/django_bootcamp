@@ -137,3 +137,7 @@ STATICFILES_DIRS = [
 # Media files (user generated and uploaded static files)
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+
+# Login
+LOGIN_URL = 'login'
