@@ -22,5 +22,5 @@ urlpatterns = [
 
     path('', core_views.index, name='index'),
     path('login', core_views.login, name='login'),
-    path('login', core_views.registration, name='registration')
+    path('registration', core_views.registration, name='registration')
 ]
