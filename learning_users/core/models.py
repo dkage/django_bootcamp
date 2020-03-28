@@ -7,9 +7,8 @@ class UserProfileInfo(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
-    # Inner classes
     portfolio_site = models.URLField(blank=True)
-    profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pics/', blank=True)
 
     def __str__(self):
         return self.user.username
