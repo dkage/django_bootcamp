@@ -18,7 +18,8 @@ def special(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponse(request, 'core/index.html')
+    print('User logged out.')
+    return render(request, 'core/index.html')
 
 
 def user_login(request):
@@ -31,7 +32,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reversed('index'))
+                print(user.username + 'just logged in')
+                return HttpResponseRedirect('login')
             else:
                 return HttpResponse("Account blocked.")
         else:

@@ -4,7 +4,7 @@
     <div class="jumbotron">
         <h2>Login please</h2>
 
-        <form action="login.html" cmethod="post">
+        <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
 
             <label for="username">Username:
