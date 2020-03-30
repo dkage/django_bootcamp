@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Core urls
-    path('', core.views.CBView.as_view()),
+    path('', core.views.IndexView.as_view()),  # template view
+    path('cbv', core.views.CBView.as_view()),  # basic view
 ]
