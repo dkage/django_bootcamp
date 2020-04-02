@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView, DetailView
 from django.http import HttpResponse
+from .models import *
 
 
 class CBView(View):
@@ -10,6 +11,7 @@ class CBView(View):
 
 
 class IndexView(TemplateView):
+
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -17,3 +19,12 @@ class IndexView(TemplateView):
         context['variable'] = 'Hello string'
 
         return context
+
+
+class SchoolListView(ListView):
+    model = School
+
+
+class SchoolDetailView(DetailView):
+    model = School
+    template_name = 'core_base.html'
