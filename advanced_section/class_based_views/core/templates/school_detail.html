@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'core_base.html' %}
 
-</body>
-</html>
+<div class="jumbotron">
+    <h1>School detail page</h1>
+
+    {% block content %}
+
+        <p>Name: {{ school_detail.name }}</p>
+        <p>Principal: {{ school_detail.principal }}</p>
+        <p>Location: {{ school_detail.location }}</p>
+
+        <h3>Students in this school:</h3>
+
+        {% for student in school_detail.students.all %}
+            <p>{{ student.name }}, {{ student.age }} years old;</p>
+
+        {% endfor %}
+        
+    {% endblock %}
+
+</div>

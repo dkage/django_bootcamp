@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'core_base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+    <h1>Welcome to list of schools</h1>
+
+    <ol>
+        {% for school in schools %}
+            <li><a href="{{ school.id }}">{{ school.name }}</a></li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}

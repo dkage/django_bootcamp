@@ -22,9 +22,13 @@ class IndexView(TemplateView):
 
 
 class SchoolListView(ListView):
+    context_object_name = 'schools'
     model = School
+    template_name = 'school_list.html'
 
 
 class SchoolDetailView(DetailView):
+    context_object_name = 'school_detail'
     model = School
-    template_name = 'core_base.html'
+    template_name = 'school_detail.html'
+    slug_field = 'id'
