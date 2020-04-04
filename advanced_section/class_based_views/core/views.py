@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import View, TemplateView, ListView, DetailView
 from django.http import HttpResponse
 from .models import *
+from django.views.generic import (View, TemplateView, ListView, DetailView,
+                                  CreateView, UpdateView, DeleteView)
 
 
 class CBView(View):
@@ -32,3 +33,16 @@ class SchoolDetailView(DetailView):
     model = School
     template_name = 'school_detail.html'
     slug_field = 'id'
+
+
+class SchoolCreateView(CreateView):
+    model = School
+    template_name = 'school_form.html'
+    fields = ('name', 'principal', 'location')
+
+
+class SchoolUpdateView(UpdateView):
+    model = School
+    template_name = 'school_form.html'
+    fields = ('name', 'principal')
+
