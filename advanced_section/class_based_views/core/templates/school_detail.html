@@ -17,7 +17,9 @@
         {% endfor %}
 
     <div class="container">
-        <p><a class="btn btn-warning" href=" {% url 'local_core:update_school' school_detail.pk %}">Edit</a></p>
+        <p><a class="btn btn-warning" href="{% url 'local_core:update_school' school_detail.pk %}">Edit</a></p>
+        <p><a class="btn btn-danger" href="{% url 'local_core:delete_school' school_detail.pk %}">Delete</a></p>
+
     </div>
 
     {% endblock %}
