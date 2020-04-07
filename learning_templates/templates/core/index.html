@@ -1,6 +1,15 @@
 <!DOCTYPE html>
-{% extends 'core/base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
 
-{% block body_block %}
-    <h1>Index page.</h1>
-{% endblock %}
+<h1>Index page</h1>
+
+<h2>{{ text | cut:'world' }}</h2>
+<h2>{{ number | add:"2" }}</h2>
+
+</body>
+</html>
