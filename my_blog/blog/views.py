@@ -1,6 +1,9 @@
 from django.shortcuts import render
 import django.utils.timezone as tz
-from django.views.generic import TemplateView, ListView, DetailView
+from blog.forms import PostForm, CommentForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from blog.models import *
 
 
@@ -17,5 +20,14 @@ class PostListView(ListView):
 
 
 class PostDetailView(DetailView):
+    model = Post
+
+
+@login_required()
+class PostCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login/'
+    redirect_field_name = 'blog/post_detail.html'
+
+    form_class = PostForm
     model = Post
 
