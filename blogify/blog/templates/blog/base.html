@@ -13,8 +13,45 @@
     {#  Medium editor  #}
     <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,700;1,200;1,400;1,700&family=Russo+One&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<nav class="navbar navbar-default techfonts">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'post_list' %}" class="navbar-brand bigbrand"></a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="https://www.github.com">Github</a></li>
+            <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'post_new' %}">New Post</a></li>
+            <li><a href="{% url 'post_draft_list' %}">Drafts</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li>Welcome: {{ user.username }}</li>
+        {% else %}
+            <li class="nav navbar-right"><a href="{% url 'login' %}"><span class="glyphicon-user"></span></a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="blog_posts">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
