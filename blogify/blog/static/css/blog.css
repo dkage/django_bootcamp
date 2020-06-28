@@ -9,3 +9,8 @@
 .standard_font {
     font-family: 'Nunito', sans-serif;
 }
+
+.centerstage {
+    margin-left: auto;
+    margin-right: auto;
+}
