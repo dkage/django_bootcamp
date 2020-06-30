@@ -8,10 +8,10 @@
     {% if form.errors %}
         <p>User and pass didn't match, type again.</p>
     {% endif %}
-w
+
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
-            {% form.as_p %}
+            {{ form.as_p }}
             <input type="submit" class="btn btn-primary" value="login">
         </form>
 
